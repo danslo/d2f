@@ -32,16 +32,14 @@ def get_hist(image):
 def main():
     streamer = sys.argv[1];
     if (os.system(f"./get_twitch_frame {streamer}") != 0):
-        print("Could not get twitch frame.")
         return
 
     quit_button = cv2.imread("quit_button.jpg")
     roi = get_roi(f"frames/{streamer}.jpg")
     cv2.imwrite(f"frames/{streamer}.jpg", roi)
     compare = cv2.compareHist(get_hist(quit_button), get_hist(roi), cv2.HISTCMP_BHATTACHARYYA) * 100
-    print(f"Confidence: {compare}")
     if compare <= 10:
-        print("User is in main menu")
+        print(f"https://twitch.tv/{streamer} (confidence: {compare})")
 
 if __name__ == "__main__":
     main()
