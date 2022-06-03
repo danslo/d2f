@@ -1,12 +1,16 @@
 #!/bin/bash
 
+# set -o xtrace
+
 THREADS=${1:-10}
-echo "Using $THREADS threads."
+MIN_VIEWERS=${2:-10}
+echo "Using $THREADS threads and ${MIN_VIEWERS} minimum viewers."
 
 rm -rf frames/*
 
 echo "Getting list of streamers..."
-STREAMERS=$(php ../tdf/run.php tdf:find "Dota 2")
-echo "$STREAMERS" | wc -l
+STREAMERS=$(php ../tdf/run.php tdf:find --min-viewers=$MIN_VIEWERS "Dota 2")
+STREAMERS_COUNT=$(echo "$STREAMERS" | wc -l)
+echo "Found $STREAMERS_COUNT streamers."
 
 parallel -j$THREADS -k 'python3 d2f.py {}' ::: $STREAMERS

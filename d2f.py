@@ -12,7 +12,7 @@ def get_hist(image):
     return cv2.calcHist([image], [0, 1, 2], None, [256, 256, 256], [0, 256, 0, 256, 0, 256])
 
 def main():
-    streamer = sys.argv[1];
+    streamer, viewers = sys.argv[1].split('#')
     if (os.system(f"./get_twitch_frame {streamer}") != 0):
         return
 
@@ -21,7 +21,7 @@ def main():
     cv2.imwrite(f"frames/{streamer}.jpg", roi)
     compare = cv2.compareHist(get_hist(quit_button), get_hist(roi), cv2.HISTCMP_BHATTACHARYYA) * 100
     if compare <= 10:
-        print(f"https://twitch.tv/{streamer} (confidence: {compare})")
+        print(f"https://twitch.tv/{streamer} (confidence: {compare}, viewers: {viewers})")
 
 if __name__ == "__main__":
     main()
