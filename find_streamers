@@ -1,7 +1,9 @@
 #!/bin/bash
 
+rm -rf frames/*
+
 echo "Getting list of streamers..."
 STREAMERS=$(php ../tdf/run.php tdf:find "Dota 2")
 echo "$STREAMERS" | wc -l
 
-parallel -j10 -k 'python3 main.py {}' ::: $STREAMERS
+parallel -j10 -k 'python3 d2f.py {}' ::: $STREAMERS
