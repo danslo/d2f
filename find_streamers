@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "Getting list of streamers..."
+STREAMERS=$(php ../tdf/run.php tdf:find "Dota 2")
+echo "$STREAMERS" | wc -l
+
+for STREAMER in $STREAMERS
+do
+  echo $STREAMER
+  python3 main.py $STREAMER
+  echo ""
+done

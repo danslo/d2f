@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ $# -eq 0 ]] ; then
+    echo "Usage: $0 <username>"
+    exit 1
+fi
+
+URL=$(streamlink --stream-url "https://www.twitch.tv/$1" best) && ffmpeg -hide_banner -loglevel fatal -y -i $URL -an -s 1920x1080 -vframes 1 -q:v 3 "frames/$1.jpg" || exit 1
