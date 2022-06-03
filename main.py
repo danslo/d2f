@@ -1,21 +1,3 @@
-"""
-query {
-  game(name: "Dota 2") {
-    streams(first: 30, after: null) {
-      edges {
-        cursor
-        node {
-          viewersCount
-          broadcaster {
-            displayName
-          }
-        }
-      }
-    }
-  }
-}
-"""
-
 import cv2
 import os
 import sys
