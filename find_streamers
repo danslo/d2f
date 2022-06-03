@@ -1,5 +1,7 @@
 #!/bin/bash
 
+THREADS=${1:-10}
+echo "Using $THREADS threads."
 
 rm -rf frames/*
 
@@ -7,4 +9,4 @@ echo "Getting list of streamers..."
 STREAMERS=$(php ../tdf/run.php tdf:find "Dota 2")
 echo "$STREAMERS" | wc -l
 
-parallel -j{$1:-10} -k 'python3 d2f.py {}' ::: $STREAMERS
+parallel -j$THREADS -k 'python3 d2f.py {}' ::: $STREAMERS
