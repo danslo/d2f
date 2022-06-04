@@ -1,6 +1,7 @@
 import cv2
 import os
 import sys
+from detect_face import detect_face
 
 def get_roi(filename):
     image = cv2.imread(filename)
@@ -23,10 +24,11 @@ def main():
 
     quit_button = cv2.imread("quit_button.jpg")
     roi = get_roi(f"frames/{streamer}.jpg")
-    cv2.imwrite(f"frames/{streamer}.jpg", roi)
+    #cv2.imwrite(f"frames/{streamer}.jpg", roi)
     compare = cv2.compareHist(get_hist(quit_button), get_hist(roi), cv2.HISTCMP_BHATTACHARYYA) * 100
+    face_detected = detect_face(f"frames/{streamer}.jpg")
     if compare <= 10:
-        print(f"https://twitch.tv/{streamer} (confidence: {compare}, viewers: {viewers})")
+        print(f"https://twitch.tv/{streamer} (confidence: {compare}, viewers: {viewers}, faces detected: {face_detected})")
 
 if __name__ == "__main__":
     main()
