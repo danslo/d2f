@@ -11,16 +11,16 @@ def show_image(img):
 def get_faces(img):
     cascades = {
        "haar_frontal": cv2.CascadeClassifier('../opencv/data/haarcascades/haarcascade_frontalface_default.xml'),
-#       "haar_profile": cv2.CascadeClassifier('../opencv/data/haarcascades/haarcascade_profileface.xml'),
-#       "lbp_profile": cv2.CascadeClassifier('../opencv/data/lbpcascades/lbpcascade_profileface.xml'),
-#       "lbp_frontal": cv2.CascadeClassifier('../opencv/data/lbpcascades/lbpcascade_frontalface_improved.xml'),
+       "haar_profile": cv2.CascadeClassifier('../opencv/data/haarcascades/haarcascade_profileface.xml'),
+       "lbp_profile": cv2.CascadeClassifier('../opencv/data/lbpcascades/lbpcascade_profileface.xml'),
+       "lbp_frontal": cv2.CascadeClassifier('../opencv/data/lbpcascades/lbpcascade_frontalface_improved.xml'),
     }
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     faces = []
     for label, cascade in cascades.items():
         if len(faces): break
-        for face in cascade.detectMultiScale(gray_img, scaleFactor=1.1, minNeighbors=5, minSize=(40, 40), flags = cv2.CASCADE_SCALE_IMAGE):
+        for face in cascade.detectMultiScale(gray_img, scaleFactor=1.2, minNeighbors=7, minSize=(30, 30), flags = cv2.CASCADE_SCALE_IMAGE):
             faces.append(face)
     return faces
 

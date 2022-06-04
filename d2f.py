@@ -26,8 +26,8 @@ def main():
     roi = get_roi(f"frames/{streamer}.jpg")
     #cv2.imwrite(f"frames/{streamer}.jpg", roi)
     compare = cv2.compareHist(get_hist(quit_button), get_hist(roi), cv2.HISTCMP_BHATTACHARYYA) * 100
-    face_detected = detect_face(f"frames/{streamer}.jpg")
     if compare <= 10:
+        face_detected = detect_face(f"frames/{streamer}.jpg")
         print(f"https://twitch.tv/{streamer} (confidence: {compare}, viewers: {viewers}, faces detected: {face_detected})")
 
 if __name__ == "__main__":
