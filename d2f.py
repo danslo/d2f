@@ -12,8 +12,13 @@ def get_hist(image):
     return cv2.calcHist([image], [0, 1, 2], None, [256, 256, 256], [0, 256, 0, 256, 0, 256])
 
 def main():
+    ignore = open("ignore.txt").read().splitlines()
     streamer, viewers = sys.argv[1].split('#')
-    if (os.system(f"./get_twitch_frame {streamer}") != 0):
+
+    if streamer in ignore:
+        return
+
+    if os.system(f"./get_twitch_frame {streamer}") != 0:
         return
 
     quit_button = cv2.imread("quit_button.jpg")
