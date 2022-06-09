@@ -26,7 +26,7 @@ def main():
     if os.system(f"./scripts/get_twitch_frame {streamer}") != 0:
         return
 
-    quit_button = cv2.imread("quit_button.jpg")
+    quit_button = cv2.imread("images/quit_button.jpg")
     roi = get_roi(f"frames/{streamer}.jpg")
     #cv2.imwrite(f"frames/{streamer}.jpg", roi)
     compare = cv2.compareHist(get_hist(quit_button), get_hist(roi), cv2.HISTCMP_BHATTACHARYYA) * 100
